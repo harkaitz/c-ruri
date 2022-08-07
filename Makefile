@@ -1,13 +1,12 @@
 DESTDIR    =
 PREFIX     =/usr/local
-WEB_DIR    =/usr/local/share/c-ruri/cgi-bin
+WEB_DIR    =$(PREFIX)/share/c-ruri/cgi-bin
 CC         =gcc
 CFLAGS     =-Wall -g -O3
 AR         =ar
 CPPFLAGS   =
 LDFLAGS    =
-LIBS       = "-l:libhiredis.a"
-CFLAGS_ALL =$(LDFLAGS) $(CFLAGS) $(CPPFLAGS)
+LIBS       = -lhiredis
 
 all: ruri.cgi ruri libruri.a ruri.h
 install: all
@@ -23,11 +22,11 @@ clean:
 	rm -f ruri.cgi ruri libruri.a
 
 ruri.cgi: ruri.cgi.c ruri.h
-	$(CC) -o $@ ruri.cgi.c $(CFLAGS_ALL) $(LDFLAGS) $(LIBS)
+	$(CC) -o $@ ruri.cgi.c $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LIBS)
 ruri: ruri.c ruri.h libruri.a
-	$(CC) -o $@ ruri.c libruri.a $(CFLAGS_ALL) $(LDFLAGS) $(LIBS)
+	$(CC) -o $@ ruri.c libruri.a $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LIBS)
 libruri.a: ruri.h ruri-lib.c
-	$(CC) -c ruri-lib.c $(CFLAGS_ALL) $(LDFLAGS) $(LIBS)
+	$(CC) -c ruri-lib.c $(CFLAGS) $(CPPFLAGS)
 	$(AR) -crs $@ ruri-lib.o
 	rm -f ruri-lib.o
 
