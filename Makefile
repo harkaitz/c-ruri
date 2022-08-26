@@ -36,7 +36,8 @@ libruri.a: ruri.h ruri-lib.c
 ifneq ($(PREFIX),)
 install: install-license
 install-license: LICENSE
-	mkdir -p $(DESTDIR)$(PREFIX)/share/doc/c-ruri
-	cp LICENSE $(DESTDIR)$(PREFIX)/share/doc/c-ruri
+	@echo 'I share/doc/c-ruri/LICENSE'
+	@mkdir -p $(DESTDIR)$(PREFIX)/share/doc/c-ruri
+	@cp LICENSE $(DESTDIR)$(PREFIX)/share/doc/c-ruri
 endif
 ## -- license --
